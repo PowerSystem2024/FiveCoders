@@ -9,4 +9,4 @@
 - Suarez Jonathan
 
 
-:computer:
+:computer:  ⌨️ 💾 ⚙️ 🎸 🖥️
