@@ -12,9 +12,9 @@
 💻  ⌨️ 💾 ⚙️ 🎸 🖥️ 🧠
 
 
-#### Información importante:    **SI NO VES NADA EN MAIN, ES PORQUE VAMOS DEJANDO EN LA RAMA FEATURE EL CONTENIDO EN COMÚN** 
+#### Información importante:    **SI DE MOMENTO  NO VES NADA EN MAIN, ES PORQUE VAMOS DEJANDO EN LA RAMA FEATURE EL CONTENIDO EN COMÚN** 
 
-Debido a: 
+Debido a nuestro workflow: 
 
 rama ***main*** -> alojará los tags finales - funcionando como branch productivo.
 
