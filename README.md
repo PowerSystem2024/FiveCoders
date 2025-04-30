@@ -12,7 +12,7 @@
 💻  ⌨️ 💾 ⚙️ 🎸 🖥️ 🧠
 
 
-#### Información importante:    **SI DE MOMENTO  NO VES NADA EN MAIN, ES PORQUE VAMOS DEJANDO EN LA RAMA FEATURE EL CONTENIDO EN COMÚN** 
+ ***SI DE MOMENTO  NO VES NADA EN MAIN, ES PORQUE VAMOS DEJANDO EN LA RAMA FEATURE EL CONTENIDO EN COMÚN*** 
 
 Debido a nuestro workflow: 
 
