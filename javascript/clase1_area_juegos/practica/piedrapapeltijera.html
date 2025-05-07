@@ -9,7 +9,11 @@
         let jugador  = 0
         let max = 3
         let min = 1
-        let pc = Math.floor(Math.random()*(max-min)+min) //formula que le asignamos para que el resultado esté dentro del rango 1 al 3
+        /*comentamos variable para llevarnos la fórmula a una function*/
+        //let pc = Math.floor(Math.random()*(max-min)+min) //formula que le asignamos para que el resultado esté dentro del rango 1 al 3
+
+        //llamamos a la función , le pasamos un rango mínimo y máximo para que nos genere el n° entre 1 y 3
+        let pc = generarNumeroDinamicoEntreRangos(min, max) //formula que le asignamos para que el resultado esté dentro del rango 1 al 3
         jugador = prompt("Elige: 1 piedra. 2 papel , 3 tijera")
         //alert("Elige jugador: " + jugador) queda comentado xq no se va usar de momento
 
@@ -35,6 +39,11 @@
             alert("GANASTE")
         } else{
             alert("PERDISTE")
+        }
+
+        //función que retorna un n° al azar entre los rangos definidos por los argumentos que le pasamos (entre 1 y 3 en este caso)
+        function generarNumeroDinamicoEntreRangos(min, max){
+            return Math.floor(Math.random() * (max - min+1)+ min) ; //retornamos el valor
         }
     </script>
 </head>
