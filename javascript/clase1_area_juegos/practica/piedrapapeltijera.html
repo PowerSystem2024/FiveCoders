@@ -1,51 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piedra, papel y tijera</title>
-    <script>
-        //1 será piedra 2 será papel 3 será tijera
-        let jugador  = 0
-        let max = 3
-        let min = 1
-        /*comentamos variable para llevarnos la fórmula a una function*/
-        //let pc = Math.floor(Math.random()*(max-min)+min) //formula que le asignamos para que el resultado esté dentro del rango 1 al 3
-
-        //llamamos a la función , le pasamos un rango mínimo y máximo para que nos genere el n° entre 1 y 3
-        let pc = generarNumeroDinamicoEntreRangos(min, max) //formula que le asignamos para que el resultado esté dentro del rango 1 al 3
-        jugador = prompt("Elige: 1 piedra. 2 papel , 3 tijera")
-        //alert("Elige jugador: " + jugador) queda comentado xq no se va usar de momento
-
-        if(jugador == 1){
-            alert("Elegiste piedra")
-        } else if(jugador == 2){
-            alert("Elegiste papel")
-        } else if(jugador == 3){
-            alert("Elegiste tijera")
-        }else{
-            alert("Elegiste perder")
-        }
-
-        console.log("El valor de pc es: " +pc)
-            //esto representaría la lógica del combate (jugador vs pc)
-        if(pc == jugador){
-            alert("EMPATE")
-        } else if(jugador == 1 && pc == 3){
-            alert("GANASTE")
-        } else if(jugador == 2 && pc ==1 ){
-            alert("GANASTE")
-        } else if(jugador == 3 && pc == 2){
-            alert("GANASTE")
-        } else{
-            alert("PERDISTE")
-        }
-
-        //función que retorna un n° al azar entre los rangos definidos por los argumentos que le pasamos (entre 1 y 3 en este caso)
-        function generarNumeroDinamicoEntreRangos(min, max){
-            return Math.floor(Math.random() * (max - min+1)+ min) ; //retornamos el valor
-        }
-    </script>
+    <script src="codigo.js"></script>
+</head>
+<body>
+    <h1>Piedra🪨, Papel📄 y Tijera✂️</h1>
+</body>
+</html>
 </head>
 <body>
     
