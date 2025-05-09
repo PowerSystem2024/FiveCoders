@@ -1,10 +1,11 @@
+from server.models.user import User
 #Simulación de base de datos
 users_db = {
-    "Gabriel": {"id": 1, "name": "Gabriel", "pw": "1231"},
-    "Matias": {"id": 2, "name": "Matias", "pw": "1231"},
-    "Llugany": {"id": 3, "name": "Llugany", "pw": "1231"},
-    "Jonathan": {"id": 4, "name": "Jonathan", "pw": "1231"},
-    "Seleme": {"id": 5, "name": "Seleme", "pw": "1231"}
+    "Gabriel": User(1, "Gabriel", "1231"),
+    "Matias": User(2, "Matias", "1231"),
+    "Llugany": User(3, "Llugany", "1231"),
+    "Jonathan": User(4, "Jonathan",  "1231"),
+    "Seleme": User(5, "Seleme", "1231")
 }
 
 
