@@ -25,7 +25,7 @@
 
 1. Inicia el servidor en una terminal desde la raíz del proyecto:
 
-   ./run_server.sh
+   ./runserver.sh
 
 2. Inicia el cliente en otra terminal desde la raíz del proyecto:
 
