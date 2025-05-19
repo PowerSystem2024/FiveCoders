@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Five Coders</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <body>
+
+    <h2>Batalla de las N Reinas <br> Five Coders</h2>
+
+    <label for="valorN">Define N (mínimo 8): </label>
+    <input type="number" id="valorN" min="8" value="8">
+    <button onclick="iniciarNReinas()">Generar Tablero</button>
+
+    <h3>Tablero</h3>
+
+    <div class="contenedor">
+        <img src="./blanca.png" alt="Reina" class="img lado reina">
+        <div id="tablero" class="tablero"></div>
+        <img src="./negra.png" alt="Reina" class="img lado reina">
+    </div>
+
+    <h3>Índices de las Reinas</h3>
+    <div id="indices"></div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
