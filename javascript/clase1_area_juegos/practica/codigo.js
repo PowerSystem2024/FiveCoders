@@ -50,7 +50,8 @@ function iniciarJuego() {
     alert("Ganaste: " + triunfos + " veces, Perdiste: " + perdidas + " veces");
 }
 
-// Esta es la función que llama el botón
+// Esta es la función que llama el botón y reinicia el juego desde la function linea 21
+
 function reiniciarJuego() {
     iniciarJuego();
 }
