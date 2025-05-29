@@ -44,3 +44,8 @@ Un nodo representa una parte del documento HTML.
   <h2>Aprende sobre el DOM</h2>
 </body>
 </html>
+
+Este archivo .html lo nombraremos nodo raíz y contiene un nodo hijo el cual es el elemento
+<html>. Este a su vez contiene dos hijos , los elementos ***<head> y <body>***, y estos a su vez
+tienen hijos propios. Podríamos acceder a estos elementos del documento y hacer cambios en
+ellos utilizando javascript.
