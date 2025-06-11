@@ -1,0 +1,19 @@
+/* 1) Quita por completo el margin-bottom del grid */
+.container {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 16px;
+  margin-bottom: 0;      
+  /* evita el colapso de márgenes */
+  overflow: auto;
+}
+
+/* 2) Elimina cualquier margin-top de la sección de ataque */
+#seleccionar-ataque {
+  margin-top: 0;           /* quita el espacio encima */
+}
+
+
+#seleccionar-ataque h2 {
+  margin-top: 0;
+}
