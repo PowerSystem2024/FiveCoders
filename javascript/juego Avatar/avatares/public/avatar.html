@@ -1,51 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Leyenda de Aang: Avatar</title>
-    <script src="./js/avatar.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Leyenda de Aang: Avatar</title>
+  <link rel="stylesheet" href="./css/style.css"><!--lo importe asi desde la carpeta anterior-->
+  <script src="./js/avatar.js"></script>
 </head>
 <body>
-    <h1>Avatar</h1>
-    <section id="seleccionar-personaje">
+  <h1>Avatar</h1>
+  
+  <!-- Contenedor que envuelve las secciones con Grid -->
+  <div class="container">
+    <!-- Sección de selección de personaje (izquierda) -->
+    <div class="div1">
+      <section id="seleccionar-personaje" class="game-container">
         <h2>Elige tu personaje</h2>
+        <label for="Zuko">Zuko</label>
+        <input type="radio" name="personaje" id="Zuko" />
 
-        <label for="zuko">Zuko</label>
-        <input type="radio" name="personaje" id="Zuko"/>
+        <label for="Katara">Katara</label>
+        <input type="radio" name="personaje" id="Katara" />
 
-         <label for="katara">Katara</label>
-        <input type="radio" name="personaje" id="Katara"/>
+        <label for="Aang">Aang</label>
+        <input type="radio" name="personaje" id="Aang" />
 
-         <label for="aang">Aang</label>
-        <input type="radio" name="personaje" id="Aang"/>
-
-         <label for="toph">Toph</label>
-        <input type="radio" name="personaje" id="Toph"/>
+        <label for="Toph">Toph</label>
+        <input type="radio" name="personaje" id="Toph" />
 
         <button id="boton-personaje">Seleccionar</button>
-
-    </section>
-
-    <section id="seleccionar-ataque">
-        <h2>Elige tu ataque</h2>
-        <p>Tu personaje <span id="personaje-jugador"></span> tiene <span>3</span> vidas</p> <!--esto debe ser dinamico-->
-        <p>El personajes enemigo <span id="personaje-enemigo"></span> tiene <span>3</span> vidas</p>
-        <p>
-            <button id="boton-punio">punio </button>
-            <button id="boton-patada">patada</button>
-            <button id="boton-barrida">barrida</button>
-        </p>
-    </section>
-    <section id="mensajes"> <!--Sera un parrafo dinamico-->
-        <p>Tu personaje ataco con todo el poder del fuego, el personaje del 
-            enemigo ataco con el medio poder de tierra - ganaste</p>
-    </section>
-
-    <section id="reiniciar">
-        <button id="boton-reiniciar">Reiniciar</button>
-    </section>
-
-    
+      </section>
+    </div>
+    <!-- Sección de reglas del juego (derecha) -->
+    <div class="div2">
+      <aside id="reglas" class="rules-container">
+        <h2>Reglas del juego</h2>
+        <p><strong>Instrucciones iniciales:</strong></p>
+        <ul>
+          <li>Selecciona un personaje para comenzar el juego.</li>
+          <li>Tanto tú (jugador) como el PC (enemigo) inician con 3 vidas.</li>
+        </ul>
+        <p><strong>Reglas de combate:</strong></p>
+        <ul>
+          <li>La patada gana al punio.</li>
+          <li>El punio gana a la barrida.</li>
+          <li>La barrida gana a la patada.</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+  
+  <!-- Secciones restantes (ataques, mensajes, reiniciar) -->
+  <section id="seleccionar-ataque">
+    <h2>Elige tu ataque</h2>
+    <p>Tu personaje <span id="personaje-jugador"></span> tiene <span>3</span> vidas</p>
+    <p>El personaje enemigo <span id="personaje-enemigo"></span> tiene <span>3</span> vidas</p>
+    <p>
+      <button id="boton-punio">Punio</button>
+      <button id="boton-patada">Patada</button>
+      <button id="boton-barrida">Barrida</button>
+    </p>
+  </section>
+  
+  <section id="mensajes"></section>
+  
+  <section id="reiniciar">
+    <button id="boton-reiniciar">Reiniciar</button>
+  </section>
 </body>
 </html>

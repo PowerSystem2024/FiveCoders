@@ -6,6 +6,10 @@ function iniciarJuego() {
     let botonPersonajeJugador = document.getElementById('boton-personaje');
     botonPersonajeJugador.addEventListener('click', seleccionarPersonajeJugador);
 
+// recarga todo el juego
+    let botonReiniciar = document.getElementById('boton-reiniciar');
+     botonReiniciar.addEventListener('click', reiniciarJuego);
+
     let botonPunio = document.getElementById('boton-punio')
     botonPunio.addEventListener('click', ataquePunio)
     let botonPatada= document.getElementById('boton-patada')
@@ -17,7 +21,7 @@ function iniciarJuego() {
 // Función que selecciona el personaje del jugador y el enemigo
 function seleccionarPersonajeJugador() {
     const personajes = ['Zuko', 'Katara', 'Aang', 'Toph'];
-    let personajeSeleccionado = null; //incia variable para el personaje del jugador 
+    let personajeSeleccionado = null; //incia variable para el personaje del jugador
 
     if (document.getElementById('Zuko').checked) {
         personajeSeleccionado = 'Zuko';
@@ -64,10 +68,42 @@ function ataqueAleatorioEnemigo(){//ocupamos la funcion aleatoria
     }else {
         ataqueEnemigo = 'Barrida'
     }
+    combate();
+}
+
+function combate(){
+           //combate
+       if(ataqueEnemigo == ataqueJugador){
+        crearMensaje("Empate")
+       }else if(ataqueJugador == 'Punio' && ataqueEnemigo == 'Barrida'){
+        crearMensaje("Ganaste")
+       }else if(ataqueJugador == 'Patada' && ataqueEnemigo == 'Punio'){
+        crearMensaje("Ganaste")
+       }else if(ataqueJugador == 'Barrida' && ataqueEnemigo == 'Patada'){
+        crearMensaje("Ganaste")  
+       }else{
+        crearMensaje("Perdiste 😵 jaja")
+       }
+}
+
+
+function crearMensaje(resultado){
+    let sectionMensaje = document.getElementById('mensajes')
+    let parrafo = document.createElement('p')
+
+    parrafo.innerHTML = 'Tu personaje ataco con ' + ataqueJugador + ', el personaje del enemigo ataco con '+ ataqueEnemigo + ' '+ resultado
+   
+    sectionMensaje.appendChild(parrafo)
 }
 
 function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+
+ // recarga todo el documento
+function reiniciarJuego() {
+ 
+  location.reload();
+}
 window.addEventListener('load', iniciarJuego);
