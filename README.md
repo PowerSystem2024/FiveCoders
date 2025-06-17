@@ -49,3 +49,9 @@ Este archivo .html lo nombraremos nodo raíz y contiene un nodo hijo el cual es 
 <html>. Este a su vez contiene dos hijos , los elementos ***<head> y <body>***, y estos a su vez
 tienen hijos propios. Podríamos acceder a estos elementos del documento y hacer cambios en
 ellos utilizando javascript.
+
+----------------------------------------------------------------------------------------------------
+### ❓ ¿Polimorfismo ⁉️
+
+Definición: Se refiere a la capacidad de los objetos de una clase derivada (subclase) para ser tratados como objetos de su clase base(superclase).
+El objeto de una clase derivada puede tomar varias formas o comportarse de diferentes maneras según el contexto en el que se use.
