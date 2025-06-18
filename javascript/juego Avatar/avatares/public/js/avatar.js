@@ -1,5 +1,7 @@
 let ataqueJugador
 let ataqueEnemigo
+let vidasJugador = 3
+let vidasEnemigo = 3
 
 // Función que inicia el juego: espera el evento click en boton-personaje
 function iniciarJuego() {
@@ -72,18 +74,58 @@ function ataqueAleatorioEnemigo(){//ocupamos la funcion aleatoria
 }
 
 function combate(){
+    let spanVidasJugador = document.getElementById('vidas-jugador')
+    let spanVidasEnemigo = document.getElementById('vidas-enemigo')
            //combate
        if(ataqueEnemigo == ataqueJugador){
         crearMensaje("Empate")
        }else if(ataqueJugador == 'Punio' && ataqueEnemigo == 'Barrida'){
         crearMensaje("Ganaste")
+        vidasEnemigo--
+        spanVidasEnemigo.innerHTML = vidasEnemigo
        }else if(ataqueJugador == 'Patada' && ataqueEnemigo == 'Punio'){
         crearMensaje("Ganaste")
+        vidasEnemigo--
+        spanVidasEnemigo.innerHTML = vidasEnemigo
        }else if(ataqueJugador == 'Barrida' && ataqueEnemigo == 'Patada'){
-        crearMensaje("Ganaste")  
+        crearMensaje("Ganaste")
+        vidasEnemigo--
+        spanVidasEnemigo.innerHTML = vidasEnemigo  
        }else{
-        crearMensaje("Perdiste 😵 jaja")
+        crearMensaje("Perdiste ")
+        vidasJugador --
+        spanVidasJugador.innerHTML = vidasJugador
+        
        }
+       //revisar vidas
+       revisarVidas()
+}
+
+function revisarVidas(){
+    if(vidasEnemigo == 0){
+        //ganamos
+        crearMensajeFinal("Estas echo una Furia!!! has ganado")
+    }else if(vidasJugador == 0){
+        //perdimos
+         crearMensajeFinal("Que pena!!! has perdido, oprime alt f4 para continuar")
+    }
+
+}
+
+function crearMensajeFinal(resultado){
+    let sectionMensaje = document.getElementById('mensajes')
+    let parrafo = document.createElement('p')
+
+    parrafo.innerHTML = resultado
+   
+    sectionMensaje.appendChild(parrafo)
+
+    let botonPunio = document.getElementById('boton-punio')
+    botonPunio.disabled = true
+    let botonPatada= document.getElementById('boton-patada')
+    botonPatada.disabled = true
+    let botonBarrida= document.getElementById('boton-barrida')
+    botonBarrida.disabled = true
 }
 
 
