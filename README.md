@@ -9,6 +9,7 @@
 - Suarez Jonathan
 
 
+
 💻  ⌨️ 💾 ⚙️ 🎸 🖥️ 🧠 
 
 
@@ -55,3 +56,15 @@ ellos utilizando javascript.
 
 Definición: Se refiere a la capacidad de los objetos de una clase derivada (subclase) para ser tratados como objetos de su clase base(superclase).
 El objeto de una clase derivada puede tomar varias formas o comportarse de diferentes maneras según el contexto en el que se use.
+=======
+💻  ⌨️ 💾 ⚙️ 🎸 🖥️ 🧠 
+
+Nuestro flujo de trabajo: 
+
+rama ***main*** -> alojará los tags finales - funcionando como branch productivo.
+
+rama ***develop*** -> gestionará los tags , contendrá el desarrollo común de todos los devs. Rama estable.
+
+rama ***feature*** ->  Rama de origen para branchs personales - ambiente de desarrollo - ajustes- pruebas - Rama de pruebas y fusión común de las ramas particulares. 
+
+
