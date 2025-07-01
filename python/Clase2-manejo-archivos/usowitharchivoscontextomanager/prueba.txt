@@ -1,0 +1,10 @@
+Este es un archivo de prueba para:
+
+ ***Manejo de contexto con with*****
+
+ ****
+    **
+       *
+         FiveCoders *
+                        **
+                            *****
