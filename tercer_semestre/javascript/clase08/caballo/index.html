@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Caballo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <form id="formulario" autocomplete="off">
+        <label for="tamano">Tamaño del tablero:</label>
+        <input type="number" id="tamano" min="1" required>
+        <label>Posición inicial del caballo:</label>
+        <input type="number" id="posicion-x" placeholder="x" min="0" required>
+        <input type="number" id="posicion-y" placeholder="y" min="0" required>
+        <button type="button" onclick="inicializarTablero()">Iniciar</button>
+    </form>
+    <div id="tablero"></div>
+    <div id="consola-log"></div>
+    <script src="script.js"></script>
+</body>
+</html>

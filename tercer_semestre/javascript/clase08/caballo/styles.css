@@ -1,0 +1,171 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+}
+
+.botonIniciar {
+    background: #06bd00;
+    color: #fff;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.botonIniciar:hover {
+    background: #058b00;
+}
+
+form, #tablero, #consola-log {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    background: #fff;
+    margin-top: 0;
+    padding: 24px;
+    margin-bottom: 16px;
+}
+
+form {
+    gap: 16px;
+}
+
+label {
+    font-size: 1rem;
+    margin-bottom: 6px;
+    color: #333;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #fafbfc;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
+    border-color: #06bd00;
+    outline: none;
+}
+
+input[type="checkbox"] {
+    accent-color: #06bd00;
+    margin-right: 8px;
+}
+
+input[type="number"] {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #fafbfc;
+    transition: border-color 0.2s;
+}
+
+input[type="number"]:focus {
+    border-color: #06bd00;
+    outline: none;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.error-message {
+    color: #d32f2f;
+    font-size: 0.95rem;
+    margin-top: 2px;
+}
+
+.success-message {
+    color: #06bd00;
+    font-size: 0.95rem;
+    margin-top: 2px;
+}
+
+.contenedor-principal {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    align-items: stretch;
+    min-height: 100vh;
+    padding: 40px 0;
+}
+
+.seccion-formulario,
+.seccion-tablero,
+.seccion-consola {
+    flex: 1 1 0;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#tablero {
+    min-height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#consola-log {
+    background: #222;
+    color: #fff;
+    padding: 8px;
+    min-height: 40px;
+    height: 120px;           /* Tamaño fijo */
+    max-height: 120px;       /* Evita que crezca más */
+    font-family: monospace;
+    font-size: 1rem;
+    overflow-y: auto;        /* Scroll vertical siempre que sea necesario */
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+button {
+    background: #06bd00;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #058b00;
+}
+
+.celda-tablero {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    border: 1px solid #888;
+    font-size: 1.5rem;
+    vertical-align: middle;
+    user-select: none;
+}
+
+.celda-blanca {
+    background: #eee;
+}
+
+.celda-negra {
+    background: #bbb;
+}
