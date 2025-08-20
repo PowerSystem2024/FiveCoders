@@ -5,6 +5,34 @@ h1 {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+/**Creamos un contenedor padre - contiene todos los elementos section*/
+.flex-container {
+
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ align-items: center;
+ background-color: lightgrey;
+ padding: 20px;
+
+}
+
+/**Contenedores hijos - son subconjuntos de flex-container o elementos hijos */
+ .flex-item {
+ margin: 10px;
+ padding: 20px;
+ color: black;
+ font-size: 20px;
+}
+
+/* */ 
+#seleccionar-personaje {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* opcional */
+}    
+
+
 p {
     color: black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
