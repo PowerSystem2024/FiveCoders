@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /*Importamos fuente de google*/
+
+:root{
+    --bg-color: #2c3e50;         /* Un azul oscuro */
+    --primary-color: #e67e22;    /* Naranja, simbolizando el fuego de Zuko */
+    --secondary-color: #3498db;  /* Azul, simbolizando el agua de Katara */
+    --text-color: #ecf0f1;       /* Un blanco suave para alta legibilidad */
+    --card-bg-color: #34495e;    /* Un color de fondo para las secciones */
+    --font-primary: 'Arial', sans-serif; /* Fuente base segura */
+    --font-game: 'Press Start 2P', cursive; /* Fuente especial para títulos */
+}
+
+/* Reset básico para márgenes y paddings */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-primary);
+    line-height: 1.6; /*para mejorar la legibilidad del texto en párrafos*/
+
+    /*aplicamos flexbox al cuerpo*/
+    display: flex;
+    flex-direction: column; /*colocamos los elementos en columna*/
+    align-items: center; /*centramos los elementos horizontalmente*/
+    min-height: 100vh; /*hacemos que el cuerpo ocupe toda la altura de la ventana*/
+}
+
+main{
+    width: 90%; /*hacemos que el main ocupe el 90% del ancho de la ventana*/
+    max-width: 800px; /*limitamos el ancho máximo a 800px*/
+    flex-grow: 1;  /*hacemos que el main crezca para ocupar el espacio disponible, empujando el footer hacia abajo*/
+}
+
+h1, h2 {
+    font-family: var(--font-game);
+    text-align: center; /*centramos los títulos*/
+    margin-bottom: 20px; /*espacio debajo de los títulos*/
+    letter-spacing: 2px; /*espaciado entre letras para un efecto retro*/
+}
+
+h1 {
+    font-size: 2rem; /*tamaño de fuente para el título principal*/
+    color: #000000;
+    background-color: var(--primary-color);
+    padding: 15px 25px;/* Relleno para hacer que el título sea más prominente */
+    border-radius: 10px;/* Bordes redondeados */
+    margin-top: 20px;/* Espacio arriba del título */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Sombra para darle profundidad */
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--secondary-color); /* Un subrayado decorativo */
+    padding-bottom: 10px;/* Espacio debajo del título */
+}
+
+section, article {
+    background-color: var(--card-bg-color); /* Fondo para las secciones */
+    padding: 25px;/* Relleno interno */
+    margin: 20px 0;/*espacio entre secciones*/
+    border-radius: 15px;/* Bordes redondeados */
+    border: 2px solid var(--secondary-color);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    
+    /* Hacemos que cada sección sea un contenedor flex */
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Espacio uniforme entre los elementos hijos */
+}
+
+
+/* --- 4. Estilos de Componentes (Botones, Inputs, Listas) --- */
+button {
+    font-family: var(--font-game);
+    font-size: 0.9rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: #000000;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #ff9f43; /* Un naranja más claro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de crecimiento sutil */
+}
+
+#seleccionar-personaje label {
+    font-size: 1.2rem;
+    cursor: pointer;/* Cambia el cursor al pasar sobre la etiqueta */
+}
+
+#seleccionar-personaje input[type="radio"] {
+    margin-right: 10px;
+    /* Mejora visual del radio button */
+    accent-color: var(--primary-color);
+    transform: scale(1.3);
+}
+
+#reglas-del-juego ol, #reglas-del-juego ul {
+    padding-left: 20px; /* Mantiene la indentación de las listas */
+    width: 100%; /* Para que ocupe todo el ancho de su contenedor */
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto; /* Empuja el footer al final si el contenido es corto */
+    background-color: var(--card-bg-color);
+}
+
+/* Estas reglas se aplican solo cuando el ancho de la pantalla es de 768px o menos (tablets y móviles) */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem; /* Reducimos el tamaño de la fuente para pantallas pequeñas */
+        padding: 10px 15px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    /* En la sección de ataque, los botones se muestran en una columna */
+    #seleccionar-ataque p {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%; /* Ocupa todo el ancho para que los botones se expandan */
+    }
+
+    #seleccionar-ataque p button {
+        width: 100%; /* Cada botón ocupa todo el ancho disponible */
+    }
+
+    /* Hacemos que los personajes también se apilen verticalmente */
+    #seleccionar-personaje {
+        /* Ya son display: flex y direction: column, pero ajustamos el alineado */
+        align-items: flex-start; /* Alineamos las etiquetas a la izquierda */
+        padding-left: 30px;
+    }
+}
