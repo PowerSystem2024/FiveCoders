@@ -9,5 +9,5 @@
 - Suarez Jonathan
 💻  ⌨️ 💾 ⚙️ 🎸 🖥️ 🧠 
 
-*Esta es nuestra rama de desarrollo. Bienvenid@s!!* 😊![Uploading MuchoTrabajoAvantiGIF.gif…]()
+*Esta es nuestra rama de desarrollo. Bienvenid@s!!*
  
