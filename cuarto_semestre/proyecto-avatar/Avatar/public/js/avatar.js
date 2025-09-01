@@ -259,6 +259,7 @@ function aleatorio(min,max){
 //cuando window (la ventanda del navegador) cargue activa la funcion
 window.addEventListener('load', iniciarJuego) 
 
+
 /**
  *  1.2 Vamos a avanzar con el CSS
 
