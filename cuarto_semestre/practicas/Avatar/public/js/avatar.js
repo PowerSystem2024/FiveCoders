@@ -5,74 +5,67 @@ let personajeJugador;
 let personajeEnemigo;
 let vidaJugador;
 let vidaEnemigo;
-const sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque'); // Vinculamos una variable con una seccion de HTML
-const sectionReiniciar = document.getElementById('reiniciar');
-const botonReinicio = document.getElementById('boton-reiniciar');
-const botonPersonajeJugador = document.getElementById('boton-personaje'); //Asignamos todos los elementos con el Id 'boton-personaje' de nuestro documento
-const reglasDelJuego = document.getElementById('reglas-del-juego');
-const botonReglas = document.getElementById('boton-reglas')
-const botonCerrarReglas = document.getElementById('boton-jugar'); // Vinculamos una variable con el boton de cerrar las REGLAS
-const botonPunio = document.getElementById('boton-punio');
-const botonPatada = document.getElementById('boton-patada');
-const botonBarrida = document.getElementById('boton-barrida');
-const sectionSeleccionarPersonaje = document.getElementById('seleccionar-personaje');
-//Obtenemos todos los inputs con name="personaje"
-const personajes = document.getElementsByName('personaje');// .getElementsByName nos devuelve todos los elementos con el name "personaje"
-const spanPersonajeJugador = document.getElementById('personaje-jugador');
-const spanPersonajeEnemigo = document.getElementById('personaje-enemigo');
-const spanVidaJugador = document.getElementById('vidas-jugador');
-const spanVidaEnemigo = document.getElementById('vidas-enemigo');
-const fuego = document.getElementById('zuko');
-const agua = document.getElementById('katara');
-const tierra = document.getElementById('toph');
-const aire = document.getElementById('aang');
-const sectionMensaje = document.getElementById('mensajes');
-let parrafo;
 
 //  BOTONES PRINCIPALES DEL JUEGO
 function iniciarJuego(){
     // Escondemos la seccion de seleccionar ataque
-    sectionSeleccionarPersonaje.style.display = 'block';
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque'); // Vinculamos una variable con una seccion de HTML
     sectionSeleccionarAtaque.style.display = 'none'; // elemento.style.display = 'none', esto esconde el elemento seleccionado
+    let sectionReiniciar = document.getElementById('reiniciar');
     sectionReiniciar.style.display = "none";
 
     //  PERSONAJES  
+    let botonPersonajeJugador = document.getElementById('boton-personaje'); //Asignamos todos los elementos con el Id 'boton-personaje' de nuestro documento
     botonPersonajeJugador.addEventListener('click', seleccionarPersonajeJugador); //Con esto agregamos que evento tiene que esperar este boton (en este caso un click) y la funcion que va a llevar a cabo
 
     //  REGLAS
-    reglasDelJuego.style.display = "none";
+    document.getElementById("reglas-del-juego").style.display = "none";
 
-    botonReglas.addEventListener('click',mostrarReglas);
+    document.getElementById('boton-reglas').addEventListener('click',mostrarReglas);
     // document.getElementById('boton-jugar').addEventListener('click', seleccionarPersonajeJugador);
 
     //  ATAQUES
+    let botonPunio = document.getElementById('boton-punio');
     botonPunio.addEventListener('click', ataquePunio);
+    let botonPatada = document.getElementById('boton-patada');
     botonPatada.addEventListener('click', ataquePatada);
+    let botonBarrida = document.getElementById('boton-barrida');
     botonBarrida.addEventListener('click', ataqueBarrida);
 
     //  REINICIO DEL JUEGO
+    let botonReinicio = document.getElementById('boton-reiniciar');
     botonReinicio.addEventListener('click', reiniciarJuego);
 }
 
 //  REGLAS
 function mostrarReglas(){
-    reglasDelJuego.style.display = "block";// Mostramos las reglas del juego
-    sectionSeleccionarPersonaje.style.display = "none"; // Escondemos la seccion de seleccionar personaje
-    sectionSeleccionarAtaque.style.display = "none"; // Escondemos la seccion de seleccionar ataque
+    let mostrarReglas = document.getElementById("reglas-del-juego"); 
+    mostrarReglas.style.display = "block";// Mostramos las reglas del juego
+    document.getElementById("seleccionar-personaje").style.display = "none"; // Escondemos la seccion de seleccionar personaje
+    document.getElementById("seleccionar-ataque").style.display = "none"; // Escondemos la seccion de seleccionar ataque
+    let botonCerrarReglas = document.getElementById('boton-cerrar-reglas'); // Vinculamos una variable con el boton de cerrar las REGLAS
     botonCerrarReglas.addEventListener('click', function() {
-        reglasDelJuego.style.display = "none";// Al hacer click en el boton de cerrar las reglas, se esconde la seccion de reglas
-        sectionSeleccionarPersonaje.style.display = "block"; // Mostramos la seccion de seleccionar personaje
-    }); 
+        mostrarReglas.style.display = "none";
+        document.getElementById("seleccionar-personaje").style.display = "block"; // Mostramos la seccion de seleccionar personaje
+    }); // Al hacer click en el boton de cerrar las reglas, se esconde la seccion de reglas
 }
 
 //  SELECCION DE PERSONAJES
 function seleccionarPersonajeJugador(){
+    //Obtenemos todos los inputs con name="personaje"
+    let personajes = document.getElementsByName("personaje"); // .getElementsByName nos devuelve todos los elementos con el name "personaje"
+    let spanPersonajeJugador = document.getElementById('personaje-jugador');
     let noSelecciono = true;
+
     // Mostramos la seccion seleccionar ataque
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque');
     sectionSeleccionarAtaque.style.display = 'block'; // elemento.style.display = 'block', esto muestra la seccion
     // Escondemos la seccion de seleccionar personaje
+    let sectionSeleccionarPersonaje = document.getElementById('seleccionar-personaje'); // Vinculamos una variable con una seccion de HTML
     sectionSeleccionarPersonaje.style.display = 'none'; // elemento.style.display = 'none', esto esconde el elemento seleccionado
-    //reglasDelJuego.style.display = "none"; // Ocultamos las reglas
+
+    document.getElementById("reglas-del-juego").style.display = "none"; // Ocultamos las reglas
+
     //Recorremos la lista para ver cual esta seleccionado
     for (let personaje of personajes) {
         if (personaje.checked) { // .checked nos muestra cual es el que se ha seleccionado
@@ -89,6 +82,7 @@ function seleccionarPersonajeJugador(){
         mensajeError.innerHTML = 'Seleccionar un personaje';
         mensajeError.style.color = 'red';
 
+        let sectionSeleccionarPersonaje = document.getElementById('seleccionar-personaje');
         sectionSeleccionarPersonaje.appendChild(mensajeError)
 
         // Eliminar el mensaje de error despues de 2 segundos
@@ -110,6 +104,7 @@ function seleccionarPersonajeEnemigo () {
     while (personajeIgual){
         // Elige aleatoriamente el personaje enemigo
         let enemigoAleatorio = aleatorio(1,4);
+        let personajes = document.getElementsByName("personaje");
         personajeEnemigo = personajes[enemigoAleatorio-1];// Esto es para que den bien los numero con respecto a la lista, si es la primer posicion (1), en la lista es el 0
         // Verificar que personaje elegio el jugador
         for (let personaje of personajes){
@@ -124,11 +119,17 @@ function seleccionarPersonajeEnemigo () {
     // Para que el personaje tenga la primer letra mayuscula
     let pjCapitalice = personajeEnemigo.id.charAt(0).toUpperCase()+personajeEnemigo.id.substring(1);
     // Cambiamos el span personaje-enemigo del HTML por el personaje elegido
+    let spanPersonajeEnemigo = document.getElementById('personaje-enemigo');
     spanPersonajeEnemigo.innerHTML = pjCapitalice;
 }
 
 // Esta funcion es dependiendo de que elemento sea cada personaje, decidir si tiene ventaja, desventaja o si es parejo
 function elegirVidaPersonajes(){ 
+    let fuego = document.getElementById('zuko');
+    let agua = document.getElementById('katara');
+    let tierra = document.getElementById('toph');
+    let aire = document.getElementById('aang');
+
     if( (personajeJugador == fuego && personajeEnemigo == agua) ||
     (personajeJugador == agua && personajeEnemigo == tierra) ||
     (personajeJugador == tierra && personajeEnemigo == aire) ||
@@ -152,6 +153,8 @@ function elegirVidaPersonajes(){
 
 // Muestra que vida tiene cada personaje
 function mostrarVida(){
+    let spanVidaJugador = document.getElementById('vida-jugador');
+    let spanVidaEnemigo = document.getElementById('vida-enemigo');
     spanVidaJugador.innerHTML = vidaJugador;
     spanVidaEnemigo.innerHTML = vidaEnemigo;
 }
@@ -223,7 +226,8 @@ function combate(){
 
 //  CREACION DE MENSAJES
 function crearMensaje(mensaje){ 
-    parrafo = document.createElement('p'); //Creamos un parrafo en HTML desde JS
+    let sectionMensaje = document.getElementById("mensajes");
+    let parrafo = document.createElement('p'); //Creamos un parrafo en HTML desde JS
     // Le asignamos un texto
     parrafo.innerHTML =  'Atacaste con '+ ataqueJugador +' y el enemigo ataco con '+ ataqueEnemigo + mensaje;
     // Y lo agregamos al HTML
@@ -232,17 +236,22 @@ function crearMensaje(mensaje){
 
 function crearMensajeFinal(mensaje){ 
     // Mostramos la seccion reiniciar
+    let sectionReiniciar = document.getElementById('reiniciar');
     sectionReiniciar.style.display = "block";
     
-    parrafo = document.createElement('p'); //Creamos un parrafo en HTML desde JS
+    let sectionMensaje = document.getElementById("mensajes");
+    let parrafo = document.createElement('p'); //Creamos un parrafo en HTML desde JS
     // Le asignamos un texto
     parrafo.innerHTML =  mensaje;
     // Y lo agregamos al HTML
     sectionMensaje.appendChild(parrafo);
 
     //  ATAQUES
+    let botonPunio = document.getElementById('boton-punio');
     botonPunio.disabled = true; // .disable deshabilita el boton seleccionado
+    let botonPatada = document.getElementById('boton-patada');
     botonPatada.disabled = true; // .disable deshabilita el boton seleccionado
+    let botonBarrida = document.getElementById('boton-barrida');
     botonBarrida.disabled = true; // .disable deshabilita el boton seleccionado
 }
 
@@ -258,20 +267,3 @@ function aleatorio(min,max){
 
 //cuando window (la ventanda del navegador) cargue activa la funcion
 window.addEventListener('load', iniciarJuego) 
-
-
-/**
- *  1.2 Vamos a avanzar con el CSS
-
-Las tareas que deben cumplir para el proximo miércoles y que deben mostrar en Zoom como grupo son: 
-
-Color y background al h1
-Background a todo el sitio
-Tipografía
-Flexbox y los tipos de display
-Formato y layout a los titulos
-Que sea responsive
- * 
- * 
- * 
- */
