@@ -3,6 +3,7 @@ const cart = [];//Este array va a guardar los productos que el usuario agregue a
 
 productos.forEach((product) => { //recorro la lista de productos del archivo products.js
     const content = document.createElement("div");
+    content.className = "card";
     content.innerHTML = `
     <img src="${product.img}">
     <h3>${product.productName}</h3>
@@ -16,14 +17,22 @@ productos.forEach((product) => { //recorro la lista de productos del archivo pro
     content.append(buyButton); //agrego el boton comprar a cada producto
 
     buyButton.addEventListener("click", () => {
-        cart.push({
+        const repeat = cart.some((repeatProduct) => repeatProduct.id === product.id);//busca repetidos
+
+        if(repeat){ //si hay repetidos recorre el carrito y lo suma
+            cart.map((prod)=> {
+                if(prod.id === product.id){
+                    prod.quanty++;
+                }
+            });
+        }else {
+            cart.push({
             id: product.id,
             productName: product.productName,
             price: product.price,
             quanty: product.quanty,
+            img: product.img,
         });
-        console.log(cart);
+        }
     });
-
 });
-
