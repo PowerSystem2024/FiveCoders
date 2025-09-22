@@ -11,7 +11,7 @@ const displayCart = () => {//funcion que muestra el modal del carrito
     const modalHeader = document.createElement('div');
 
     const modalClose = document.createElement("div");
-    modalClose.innerText = "✖️";
+    modalClose.innerText = "❌";
     modalClose.className = "modal-close";
     modalHeader.append(modalClose);
 
@@ -158,7 +158,6 @@ const deleteCartProduct = (id) => {
      displayCart(); //vuelvo a renderizar el carrito para actualizar el contenido    
      displayCartCounter(); //actualizo el contador del carrito
 }
-
 
 window.displayCartCounter = () => {
     const cartCounter = document.getElementById('cart-counter');
