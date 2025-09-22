@@ -1,12 +1,20 @@
+.header-title{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 32px;
+    color: #1bcb7f;
+    font-weight: bold;
+}
+
 .card-products-container {
-    margin: 5vh auto;
+    margin: 5vh auto;/*margen superior e inferior de 5vh y centrado horizontal*/
 }
 
 .card-products {
     text-align: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    display: flex; /*convierto en contenedor flexible. Permito a los elementos hijos posicionarse de manera flexible*/
+    flex-direction: row; /*los elementos hijos se posicionan en fila(a medida que la pantalla se hace más chica)*/
+    justify-content: space-around;/*los elementos hijos se distribuyen con espacio alrededor*/
     flex-wrap: wrap;
 }
 
@@ -29,7 +37,7 @@
 }
 
 .card-products button:hover {
-    opacity: 0.7;
+    opacity: 0.5;
 }
 
 /*card button*/
@@ -50,8 +58,25 @@
     opacity: 0.9;
 }
 
+.cart-counter {
+    display: none; /*oculto el contador por defecto*/
+    position: fixed;
+    top: 89vh;
+    right: 27px;
+    color: #fff;
+    text-align: center;
+    background-color: #ed3434;
+    padding: 4px;
+    border-radius: 50%;
+    height: 17px;
+    width: 17px;
+    font-size: 15px;
+
+}
+
+/*estilos del modal - en el index.html tengo la clase*/
 .modal-overlay{
-    display: none;
+    display: none;/*oculto el overlay por defecto*/
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     top:0;
@@ -60,9 +85,9 @@
     bottom: 0;
     z-index: 1;
 }
-
+/*en el index.html tengo la clase*/
 .modal-container{
-    display: none;
+    display: none;/*oculto el modal por defecto*/
     background-color: #ffffff;
     box-shadow: 0px 3px 6px #00000029;
     padding: 40px;
@@ -76,44 +101,51 @@
     max-height: 80vh;
     overflow-y: auto;
 }
-.modal-container::-webkit-scrollbar{
+
+.modal-container::-webkit-scrollbar {
     display: none;
 }
-.modal-close {
-    float: right;
+
+/*estilos del header del modal*/
+.modal-close{
+    float:right;
     cursor: pointer;
 }
-.modal-title {
+
+.modal-title{
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
 }
 
-/*modal-body*/
-.modal-body {
+/*modal-body del carrito*/
+.modal-body{
     margin-bottom: 20px;
-    text-align: center;
+    text-align: center; 
 }
+
 .product {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-bottom: 80px;
+    margin-bottom: 20px;
 }
-.product-img {
+.product img{
+    width: 80px;
     height: 80px;
     margin-right: 20px;
-    width: 80px;
 }
-.product-info {
+
+.product-info{
     flex: 1;
     text-align: left;
 }
-.product-info h4{
+
+.product-info h3{
     margin-top: 35px;
 }
-.quantity {
+.quantity{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,47 +153,72 @@
     margin-right: 4em;
 }
 
-.quantity-btn-decrese,
-.quantity-btn-increse {
-    color: #333333;
+.quantity-btn-decrease, .quantity-btn-increase{
+    background-color: #1bcb7f;
+    color: white;
     cursor: pointer;
     font-size: 16px;
-    width: 28px;
+    width: 30px;
     font-weight: bold;
+    border: none;
+    padding: 5px 5px 5px 10px;
 }
-.quantity-input {
-    color: #333333;
+
+.quantity-input{
+    color: black;
     font-size: 16px;
     padding: 10 10px;
     text-align: center;
     width: 50px;
     font-weight: bold;
 }
+
 @media only screen and (max-width: 500px) {
-    .product-img{
+    .products-img{
         display: none;
     }
-    .modal-body {
+    .modal-body{
         margin-left: 5px;
-        margin-right: 5px;
+        margin-right: 5px ;
     }
 }
+
 .price {
     font-size: 20px;
     font-weight: bold;
     margin-top: 20px;
 }
-.delete-product {
+
+.delete-product{
     margin-top: 20px;
     margin-left: 2em;
     cursor: pointer;
 }
-.modal-footer {
+
+.modal-footer{
     text-align: center;
 }
-.total-price {
+
+.total-price{
     font-size: 20px;
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 10px;
+}
+
+.btn-primary{
+    background-color: #1bcb7f;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.btn-primary:hover{
+    background-color: #17a06b;
+    border-color: #1bcb7f;
 }

@@ -3,7 +3,7 @@ const productos = [
         id: 1,
         productName: "Banana",
         price: 480,
-        quanty: 1,
+        quantity: 1,
         img: "../media/banana.png"
 
     },
@@ -11,7 +11,7 @@ const productos = [
         id: 2,
         productName: "Leche",
         price: 950,
-        quanty: 1,
+        quantity: 1,
         img: "../media/leche.png"
 
     },
@@ -19,7 +19,7 @@ const productos = [
         id: 3,
         productName: "Pan",
         price: 300,
-        quanty: 1,
+        quantity: 1,
         img: "../media/pan.png"
 
     },
@@ -27,7 +27,7 @@ const productos = [
         id: 4,
         productName: "Queso",
         price: 1200,
-        quanty: 1,
+        quantity: 1,
         img: "../media/queso.png"
 
     }
