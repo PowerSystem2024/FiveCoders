@@ -87,10 +87,6 @@ const displayCart = () => {//funcion que muestra el modal del carrito
         `;
     modalContainer.append(modalFooter); //agrego el footer al contenedor del modal
     
-    
-    const mercadopago = new MercadoPago("APP_USR-465c6560-b703-469c-92bd-bb8f789946e4", {
-        locale: "es-AR", // The most common are: 'pt-BR', 'es-AR' and 'en-US'
-    });
     const checkoutButton = modalFooter.querySelector('#checkout-btn'); //selecciono el boton de checkout
 
     checkoutButton.addEventListener('click', async () => {
