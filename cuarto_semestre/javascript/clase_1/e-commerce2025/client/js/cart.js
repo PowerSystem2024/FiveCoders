@@ -87,9 +87,7 @@ const displayCart = () => {//funcion que muestra el modal del carrito
         `;
     modalContainer.append(modalFooter); //agrego el footer al contenedor del modal
     
-
     const checkoutButton = modalFooter.querySelector('#checkout-btn'); //selecciono el boton de checkout
-
 
     checkoutButton.addEventListener('click', async () => {
         //si el elemento en el carrito tiene quantity 0, lo filtro para que no se envie al servidor
