@@ -7,9 +7,8 @@ app.use(cors());
 app.use(express.json()); //middleware para interpretar los datos que vienen en formato json
 app.use(express.static('client')); // <--- servirá los HTML, CSS, imágenes, etc.
 
-
 const client = new MercadoPagoConfig({
-    accessToken:'YOUR_ACCESS_TOKEN_HERE' //reemplazar por el access token generado en la cuenta de mercado pago
+    accessToken:'YOUR_ACCESS_TOKEN' //reemplazar por la access token de mercado pago
 });
 
 
@@ -23,19 +22,12 @@ app.get("/succes", (req, res) => {
 });
 
 
-
-
  app.post("/create_preference", async (req, res) => { // Marca la función como async
+    
+    const {items, description} = req.body; //en lugar de enviar un solo elemento del carrito , lo preparao para que reciba varios items
     try {
         const preferenceData = {
-            items: [
-                {
-                    title: req.body.description,
-                    unit_price: Number(req.body.price),
-                    quantity: Number(req.body.quantity),
-                    currency_id: 'ARS', // Agrega el campo currency_id 
-                },
-            ],
+            items: items,
             back_urls: {
                 success: "/success",
                 failure: "/failure",

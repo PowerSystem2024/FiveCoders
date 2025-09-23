@@ -87,15 +87,25 @@ const displayCart = () => {//funcion que muestra el modal del carrito
         `;
     modalContainer.append(modalFooter); //agrego el footer al contenedor del modal
     
-    
-    const mercadopago = new MercadoPago("APP_USR-465c6560-b703-469c-92bd-bb8f789946e4", {
-        locale: "es-AR", // The most common are: 'pt-BR', 'es-AR' and 'en-US'
-    });
+
     const checkoutButton = modalFooter.querySelector('#checkout-btn'); //selecciono el boton de checkout
 
+
     checkoutButton.addEventListener('click', async () => {
-        if(cart.length == 0) return;  //si el carrito esta vacio, no hago nada
-        const product = cart[0]; //tomo el primer producto del carrito (en este caso solo hay uno)
+        //si el elemento en el carrito tiene quantity 0, lo filtro para que no se envie al servidor
+         const filteredCart = cart.filter(product => product.quantity > 0);
+         if (filteredCart.length === 0) {
+            alert("No se puede procesar un carrito sin productos.");
+            return;
+         }
+      
+       const items = filteredCart.map((product) => ({
+            title: product.productName,
+            quantity: product.quantity,
+            unit_price: product.price,
+            description: "compra de e-commerce", 
+       })); //creo un array de items para enviar al servidor
+       
         try {
              const response = await fetch(
                 "http://localhost:3001/create_preference", 
@@ -105,18 +115,16 @@ const displayCart = () => {//funcion que muestra el modal del carrito
                     "content-Type": "application/json", //indico que el contenido es json
                 },
                 body: JSON.stringify({ //envio los datos de la orden en el body       
-                    title: product.productName,
-                    quantity: product.quantity,
-                    price: product.price,
+                    items: items, 
                     description: "compra de e-commerce",    
                 }),
-            }
-            );
+            });
+
             const data = await response.json(); 
             if(data.id) {
                 checkoutButton.style.display = 'none'; //oculto el boton de checkout
                 if(window.MercadoPago){
-                    const mp = new window.MercadoPago("PUBLIC_KEY_HERE", //reemplazar por la public key generada en la cuenta de mercado pago
+                    const mp = new window.MercadoPago("YOUR_PUBLIC_KEY",//reemplazar por la public key de mercado pago 
                        {
                 locale: "es-AR",
               }
@@ -158,7 +166,6 @@ const deleteCartProduct = (id) => {
      displayCart(); //vuelvo a renderizar el carrito para actualizar el contenido    
      displayCartCounter(); //actualizo el contador del carrito
 }
-
 
 window.displayCartCounter = () => {
     const cartCounter = document.getElementById('cart-counter');
