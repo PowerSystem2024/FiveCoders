@@ -11,7 +11,7 @@ const displayCart = () => {//funcion que muestra el modal del carrito
     const modalHeader = document.createElement('div');
 
     const modalClose = document.createElement("div");
-    modalClose.innerText = "✖️";
+    modalClose.innerText = "❌";
     modalClose.className = "modal-close";
     modalHeader.append(modalClose);
 
