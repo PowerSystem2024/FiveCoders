@@ -1,263 +1,235 @@
-//  VARIABLE GLOBALES
-let ataqueJugador;
-let ataqueEnemigo;
-let personajeJugador;
-let personajeEnemigo;
-let vidaJugador;
-let vidaEnemigo;
-const sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque'); // Vinculamos una variable con una seccion de HTML
-const sectionReiniciar = document.getElementById('reiniciar');
-const botonReinicio = document.getElementById('boton-reiniciar');
-const botonPersonajeJugador = document.getElementById('boton-personaje'); //Asignamos todos los elementos con el Id 'boton-personaje' de nuestro documento
-const reglasDelJuego = document.getElementById('reglas-del-juego');
-const botonReglas = document.getElementById('boton-reglas')
-const botonCerrarReglas = document.getElementById('boton-jugar'); // Vinculamos una variable con el boton de cerrar las REGLAS
-const botonPunio = document.getElementById('boton-punio');
-const botonPatada = document.getElementById('boton-patada');
-const botonBarrida = document.getElementById('boton-barrida');
-const sectionSeleccionarPersonaje = document.getElementById('seleccionar-personaje');
-//Obtenemos todos los inputs con name="personaje"
-const personajes = document.getElementsByName('personaje');// .getElementsByName nos devuelve todos los elementos con el name "personaje"
-const spanPersonajeJugador = document.getElementById('personaje-jugador');
-const spanPersonajeEnemigo = document.getElementById('personaje-enemigo');
-const spanVidaJugador = document.getElementById('vidas-jugador');
-const spanVidaEnemigo = document.getElementById('vidas-enemigo');
-const fuego = document.getElementById('zuko');
-const agua = document.getElementById('katara');
-const tierra = document.getElementById('toph');
-const aire = document.getElementById('aang');
-const sectionMensaje = document.getElementById('mensajes');
-let parrafo;
+// Variables y constantes globales
+const ELEMENTOS = {
+    zuko: 'fuego',
+    katara: 'agua',
+    aang: 'aire',
+    toph: 'tierra'
+};
 
-//  BOTONES PRINCIPALES DEL JUEGO
-function iniciarJuego(){
-    // Escondemos la seccion de seleccionar ataque
-    sectionSeleccionarPersonaje.style.display = 'block';
-    sectionSeleccionarAtaque.style.display = 'none'; // elemento.style.display = 'none', esto esconde el elemento seleccionado
-    sectionReiniciar.style.display = "none";
+const ATAQUES = ['Punio', 'Patada', 'Barrida'];
 
-    //  PERSONAJES  
-    botonPersonajeJugador.addEventListener('click', seleccionarPersonajeJugador); //Con esto agregamos que evento tiene que esperar este boton (en este caso un click) y la funcion que va a llevar a cabo
+const SUPERIORIDAD = {
+    fuego: 'agua',
+    agua: 'tierra',
+    tierra: 'aire',
+    aire: 'fuego'
+};
 
-    //  REGLAS
-    reglasDelJuego.style.display = "none";
+let avatares = []; // arreglo global de personajes
 
-    botonReglas.addEventListener('click',mostrarReglas);
-    // document.getElementById('boton-jugar').addEventListener('click', seleccionarPersonajeJugador);
-
-    //  ATAQUES
-    botonPunio.addEventListener('click', ataquePunio);
-    botonPatada.addEventListener('click', ataquePatada);
-    botonBarrida.addEventListener('click', ataqueBarrida);
-
-    //  REINICIO DEL JUEGO
-    botonReinicio.addEventListener('click', reiniciarJuego);
-}
-
-//  REGLAS
-function mostrarReglas(){
-    reglasDelJuego.style.display = "block";// Mostramos las reglas del juego
-    sectionSeleccionarPersonaje.style.display = "none"; // Escondemos la seccion de seleccionar personaje
-    sectionSeleccionarAtaque.style.display = "none"; // Escondemos la seccion de seleccionar ataque
-    botonCerrarReglas.addEventListener('click', function() {
-        reglasDelJuego.style.display = "none";// Al hacer click en el boton de cerrar las reglas, se esconde la seccion de reglas
-        sectionSeleccionarPersonaje.style.display = "block"; // Mostramos la seccion de seleccionar personaje
-    }); 
-}
-
-//  SELECCION DE PERSONAJES
-function seleccionarPersonajeJugador(){
-    let noSelecciono = true;
-    // Mostramos la seccion seleccionar ataque
-    sectionSeleccionarAtaque.style.display = 'block'; // elemento.style.display = 'block', esto muestra la seccion
-    // Escondemos la seccion de seleccionar personaje
-    sectionSeleccionarPersonaje.style.display = 'none'; // elemento.style.display = 'none', esto esconde el elemento seleccionado
-    //reglasDelJuego.style.display = "none"; // Ocultamos las reglas
-    //Recorremos la lista para ver cual esta seleccionado
-    for (let personaje of personajes) {
-        if (personaje.checked) { // .checked nos muestra cual es el que se ha seleccionado
-            personajeJugador = personaje.id.charAt(0).toUpperCase()+personaje.id.substring(1); // .id nos da el valor del personaje elegido (porq asi esta en el html) 
-            //.charAt(0).toUpperCase() (esto devuelve el primer (0) caracter en mayuscula) .substring(1) (esto devuelve toda la cadena apartir de cierto caracter, en este caso el 1)
-            noSelecciono = false;
-            spanPersonajeJugador.innerHTML = personajeJugador; // pjCapitalice es simplemente el personaje puesto con la primer letra en mayuscula
-            break 
-        }
-    } 
-    if (noSelecciono == true){ // Condicional para cuando no se elija ningun personaje
-        // Mostrar un mensaje temporal en la pantalla si no se ha seleccionado un personaje
-        let mensajeError = document.createElement('p');
-        mensajeError.innerHTML = 'Seleccionar un personaje';
-        mensajeError.style.color = 'red';
-
-        sectionSeleccionarPersonaje.appendChild(mensajeError)
-
-        // Eliminar el mensaje de error despues de 2 segundos
-        setTimeout(() => {
-            sectionSeleccionarPersonaje.removeChild(mensajeError);
-        }, 2000)
-        reiniciarJuego();
-        return
+class Personaje {
+    constructor(nombre, elemento) {
+        this.nombre = nombre;
+        this.elemento = elemento;
+        this.vidas = 3;
     }
-    seleccionarPersonajeEnemigo();
-    elegirVidaPersonajes();
-    mostrarVida();
+    setVentaja() {
+        this.vidas = 4;
+    }
+    setDesventaja() {
+        this.vidas = 3;
+    }
+    perderVida() {
+        this.vidas -= 1;
+    }
 }
 
-function seleccionarPersonajeEnemigo () {
-    let personajeIgual = true;
-    personajeEnemigo;
-    // Bucle para que no se repitan los personajes
-    while (personajeIgual){
-        // Elige aleatoriamente el personaje enemigo
-        let enemigoAleatorio = aleatorio(1,4);
-        personajeEnemigo = personajes[enemigoAleatorio-1];// Esto es para que den bien los numero con respecto a la lista, si es la primer posicion (1), en la lista es el 0
-        // Verificar que personaje elegio el jugador
-        for (let personaje of personajes){
-            if (personaje.checked) {
-                personajeJugador = personaje;
+class Juego {
+    constructor() {
+        this.jugador = null;
+        this.enemigo = null;
+        this.ataqueJugador = null;
+        this.ataqueEnemigo = null;
+
+        // DOM
+        this.sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque');
+        this.sectionReiniciar = document.getElementById('reiniciar');
+        this.botonReinicio = document.getElementById('boton-reiniciar');
+        this.botonPersonajeJugador = document.getElementById('boton-personaje');
+        this.reglasDelJuego = document.getElementById('reglas-del-juego');
+        this.botonReglas = document.getElementById('boton-reglas');
+        this.botonCerrarReglas = document.getElementById('boton-jugar');
+        this.botonPunio = document.getElementById('boton-punio');
+        this.botonPatada = document.getElementById('boton-patada');
+        this.botonBarrida = document.getElementById('boton-barrida');
+        this.sectionSeleccionarPersonaje = document.getElementById('seleccionar-personaje');
+        this.personajesInputs = document.getElementsByName('personaje');
+        this.spanPersonajeJugador = document.getElementById('personaje-jugador');
+        this.spanPersonajeEnemigo = document.getElementById('personaje-enemigo');
+        this.spanVidaJugador = document.getElementById('vidas-jugador');
+        this.spanVidaEnemigo = document.getElementById('vidas-enemigo');
+        this.sectionMensaje = document.getElementById('mensajes');
+        this.parrafo = null;
+    }
+
+    iniciar() {
+        this.sectionSeleccionarPersonaje.style.display = 'block';
+        this.sectionSeleccionarAtaque.style.display = 'none';
+        this.sectionReiniciar.style.display = "none";
+        this.reglasDelJuego.style.display = "none";
+
+        this.botonPersonajeJugador.addEventListener('click', () => this.seleccionarPersonajeJugador());
+        this.botonReglas.addEventListener('click', () => this.mostrarReglas());
+        this.botonCerrarReglas.addEventListener('click', () => {
+            this.reglasDelJuego.style.display = "none";
+            this.sectionSeleccionarPersonaje.style.display = "block";
+        });
+        this.botonPunio.addEventListener('click', () => this.seleccionarAtaque('Punio'));
+        this.botonPatada.addEventListener('click', () => this.seleccionarAtaque('Patada'));
+        this.botonBarrida.addEventListener('click', () => this.seleccionarAtaque('Barrida'));
+        this.botonReinicio.addEventListener('click', () => this.reiniciarJuego());
+
+        this.crearPersonajes();
+    }
+
+    crearPersonajes() {
+        // Solo si el arreglo está vacío, para evitar duplicados
+        if (avatares.length === 0) {
+            avatares.push(
+                new Personaje('Zuko', 'fuego'),
+                new Personaje('Katara', 'agua'),
+                new Personaje('Aang', 'aire'),
+                new Personaje('Toph', 'tierra')
+            );
+        }
+    }
+
+    mostrarReglas() {
+        this.reglasDelJuego.style.display = "block";
+        this.sectionSeleccionarPersonaje.style.display = "none";
+        this.sectionSeleccionarAtaque.style.display = "none";
+    }
+
+    seleccionarPersonajeJugador() {
+        let seleccionado = false;
+        for (let input of this.personajesInputs) {
+            if (input.checked) {
+                let nombre = input.id.charAt(0).toUpperCase() + input.id.slice(1);
+                this.jugador = avatares.find(p => p.nombre === nombre);
+                seleccionado = true;
+                this.spanPersonajeJugador.innerHTML = nombre;
+                break;
             }
         }
-        if (personajeJugador != personajeEnemigo){
-            personajeIgual = false;
+        if (!seleccionado) {
+            this.mostrarError('Seleccionar un personaje');
+            return;
         }
-    } 
-    // Para que el personaje tenga la primer letra mayuscula
-    let pjCapitalice = personajeEnemigo.id.charAt(0).toUpperCase()+personajeEnemigo.id.substring(1);
-    // Cambiamos el span personaje-enemigo del HTML por el personaje elegido
-    spanPersonajeEnemigo.innerHTML = pjCapitalice;
-}
+        this.seleccionarPersonajeEnemigo();
+        this.elegirVidaPersonajes();
+        this.mostrarVida();
+        this.sectionSeleccionarAtaque.style.display = 'block';
+        this.sectionSeleccionarPersonaje.style.display = 'none';
+    }
 
-// Esta funcion es dependiendo de que elemento sea cada personaje, decidir si tiene ventaja, desventaja o si es parejo
-function elegirVidaPersonajes(){ 
-    if( (personajeJugador == fuego && personajeEnemigo == agua) ||
-    (personajeJugador == agua && personajeEnemigo == tierra) ||
-    (personajeJugador == tierra && personajeEnemigo == aire) ||
-    (personajeJugador == aire && personajeEnemigo == fuego) ){
-        // Personaje del jugador tiene ventaja
-        vidaJugador = 4;
-        vidaEnemigo = 3;
-    }else if( (personajeEnemigo == fuego  && personajeJugador == agua) ||
-    (personajeEnemigo == agua && personajeJugador == tierra) ||
-    (personajeEnemigo == tierra && personajeJugador == aire) || 
-    (personajeEnemigo == aire && personajeJugador == fuego) ){
-        // Personaje del enemigo tiene ventaja
-        vidaJugador = 3;
-        vidaEnemigo = 4;
-    }else{
-        // Tienen la misma vida
-        vidaJugador = 3;
-        vidaEnemigo = 3;
+    mostrarError(mensaje) {
+        let mensajeError = document.createElement('p');
+        mensajeError.innerHTML = mensaje;
+        mensajeError.style.color = 'red';
+        this.sectionSeleccionarPersonaje.appendChild(mensajeError);
+        setTimeout(() => {
+            this.sectionSeleccionarPersonaje.removeChild(mensajeError);
+        }, 2000);
+        this.reiniciarJuego();
+    }
+
+    seleccionarPersonajeEnemigo() {
+        let enemigo;
+        do {
+            let indice = this.aleatorio(0, avatares.length - 1);
+            enemigo = avatares[indice];
+        } while (enemigo.nombre === this.jugador.nombre);
+        this.enemigo = enemigo;
+        this.spanPersonajeEnemigo.innerHTML = this.enemigo.nombre;
+    }
+
+    elegirVidaPersonajes() {
+        if (SUPERIORIDAD[this.jugador.elemento] === this.enemigo.elemento) {
+            this.jugador.setVentaja();
+            this.enemigo.setDesventaja();
+        } else if (SUPERIORIDAD[this.enemigo.elemento] === this.jugador.elemento) {
+            this.jugador.setDesventaja();
+            this.enemigo.setVentaja();
+        } else {
+            this.jugador.setDesventaja();
+            this.enemigo.setDesventaja();
+        }
+    }
+
+    mostrarVida() {
+        this.spanVidaJugador.innerHTML = this.jugador.vidas;
+        this.spanVidaEnemigo.innerHTML = this.enemigo.vidas;
+    }
+
+    seleccionarAtaque(tipo) {
+        this.ataqueJugador = tipo;
+        this.ataqueEnemigo = this.ataqueAleatorio();
+        this.combate();
+    }
+
+    ataqueAleatorio() {
+        let indice = this.aleatorio(0, ATAQUES.length - 1);
+        return ATAQUES[indice];
+    }
+
+    combate() {
+        let mensajeEnviar = '';
+        if (this.ataqueJugador === this.ataqueEnemigo) {
+            mensajeEnviar = ', sus ataques chocaron y se cancelaron mutuamente. EMPATE.';
+        } else if (
+            (this.ataqueJugador === 'Punio' && this.ataqueEnemigo === 'Barrida') ||
+            (this.ataqueJugador === 'Patada' && this.ataqueEnemigo === 'Punio') ||
+            (this.ataqueJugador === 'Barrida' && this.ataqueEnemigo === 'Patada')
+        ) {
+            mensajeEnviar = ', tu diste primero y esquivaste su ataque. TU GANASTE el intercambio.';
+            this.enemigo.perderVida();
+        } else {
+            mensajeEnviar = ', el dio primero y esquivo tu ataque. EL GANO el intercambio.';
+            this.jugador.perderVida();
+        }
+        this.crearMensaje(mensajeEnviar);
+        this.mostrarVida();
+        this.revisarVidas();
+    }
+
+    crearMensaje(mensaje) {
+        this.parrafo = document.createElement('p');
+        this.parrafo.innerHTML = `Atacaste con ${this.ataqueJugador} y el enemigo ataco con ${this.ataqueEnemigo}${mensaje}`;
+        this.sectionMensaje.appendChild(this.parrafo);
+    }
+
+    crearMensajeFinal(mensaje) {
+        this.sectionReiniciar.style.display = "block";
+        this.parrafo = document.createElement('p');
+        this.parrafo.innerHTML = mensaje;
+        this.sectionMensaje.appendChild(this.parrafo);
+        this.botonPunio.disabled = true;
+        this.botonPatada.disabled = true;
+        this.botonBarrida.disabled = true;
+    }
+
+    revisarVidas() {
+        if (this.enemigo.vidas === 0) {
+            this.crearMensajeFinal('Felicitaciones GANASTE');
+        } else if (this.jugador.vidas === 0) {
+            this.crearMensajeFinal('Buen intento PERDISTE');
+        }
+    }
+
+    reiniciarJuego() {
+        location.reload();
+    }
+
+    aleatorio(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 }
 
-// Muestra que vida tiene cada personaje
-function mostrarVida(){
-    spanVidaJugador.innerHTML = vidaJugador;
-    spanVidaEnemigo.innerHTML = vidaEnemigo;
-}
-
-function revisarVidas(){
-    if(vidaEnemigo == 0){
-        //Ganamos
-        crearMensajeFinal('Felicitaciones GANASTE')
-    } else if(vidaJugador == 0){
-        //Perdimos
-        crearMensajeFinal('Buen intento PERDISTE')
-    }
-}
-
-//  COMBATE
-function ataquePunio(){ //Modificamos la variable global ataqueJugador
-    ataqueJugador = 'Punio';
-    ataqueAleatorioEnemigo(); //Al clickear un tipo de ataque activa el ataque enemigo
-}
-
-function ataquePatada(){ //Modificamos la variable global ataqueJugador
-    ataqueJugador = 'Patada';
-    ataqueAleatorioEnemigo(); //Al clickear un tipo de ataque activa el ataque enemigo
-}
-
-function ataqueBarrida(){ //Modificamos la variable global ataqueJugador
-    ataqueJugador = 'Barrida';
-    ataqueAleatorioEnemigo();//Al clickear un tipo de ataque activa el ataque enemigo
-}
-
-function ataqueAleatorioEnemigo(){ //Ahora ocupando la variable global nueva le asignamos un valor aleatorio
-    let ataqueAleatorio = aleatorio(1,3)
-
-    if(ataqueAleatorio == 1){
-        ataqueEnemigo = 'Punio';
-    } else if(ataqueAleatorio == 2){
-        ataqueEnemigo = 'Patada';
-    } else {
-        ataqueEnemigo = 'Barrida';
-    }
-
-    combate();// Inicia el combate
-}
-
-function combate(){
-    let mensajeEnviar;
-
-    if (ataqueJugador == ataqueEnemigo){
-        //No pierde vida ninguno
-        mensajeEnviar = ',sus ataques chocaron y se cancelaron mutuamente. EMPATE.';
-        crearMensaje(mensajeEnviar);
-    // Verificacion si nuestro personaje gana el intercambio
-    }else if((ataqueJugador == 'Punio' && ataqueEnemigo == 'Barrida' )||
-            (ataqueJugador == 'Patada' && ataqueEnemigo == 'Punio' )||
-            (ataqueJugador == 'Barrida' && ataqueEnemigo == 'Patada' )){
-        // Mensaje a enviar
-        mensajeEnviar =  ', tu diste primero y esquivaste su ataque. TU GANASTE el intercambio.';
-        crearMensaje(mensajeEnviar);
-        vidaEnemigo -= 1;
-    }else{
-        mensajeEnviar = ', el dio primero y esquivo tu ataque. EL GANO el intercambio.';
-        crearMensaje(mensajeEnviar);
-        vidaJugador -= 1;
-    }
-    mostrarVida();
-    //Revisar vidas
-    revisarVidas();
-}
-
-//  CREACION DE MENSAJES
-function crearMensaje(mensaje){ 
-    parrafo = document.createElement('p'); //Creamos un parrafo en HTML desde JS
-    // Le asignamos un texto
-    parrafo.innerHTML =  'Atacaste con '+ ataqueJugador +' y el enemigo ataco con '+ ataqueEnemigo + mensaje;
-    // Y lo agregamos al HTML
-    sectionMensaje.appendChild(parrafo);
-}
-
-function crearMensajeFinal(mensaje){ 
-    // Mostramos la seccion reiniciar
-    sectionReiniciar.style.display = "block";
-    
-    parrafo = document.createElement('p'); //Creamos un parrafo en HTML desde JS
-    // Le asignamos un texto
-    parrafo.innerHTML =  mensaje;
-    // Y lo agregamos al HTML
-    sectionMensaje.appendChild(parrafo);
-
-    //  ATAQUES
-    botonPunio.disabled = true; // .disable deshabilita el boton seleccionado
-    botonPatada.disabled = true; // .disable deshabilita el boton seleccionado
-    botonBarrida.disabled = true; // .disable deshabilita el boton seleccionado
-}
-
-// BOTON REINICIAR
-function reiniciarJuego(){
-    location.reload(); // Este comando reinicia la pagina
-}
-
-// VALORES ALEATORIOS
-function aleatorio(min,max){ 
-    return Math.floor(Math.random()*(max-min+1)+min);
-}
-
-//cuando window (la ventanda del navegador) cargue activa la funcion
-window.addEventListener('load', iniciarJuego) 
+// Inicialización del juego
+window.addEventListener('load', () => {
+    const juego = new Juego();
+    juego.iniciar();
+});
 
 
 /**
