@@ -1,0 +1,29 @@
+from cuarto_semestre.python.clase01.db.conexion import Conexion
+from cuarto_semestre.python.clase01.logg.logger_base import log
+class CursorDelPool:
+    def __init__(self):
+        self._conexion = None
+        self._cursor = None
+
+    def __enter__(self):
+        log.debug('Incio del metedo with y __enter__')
+        self._conexion = Conexion.obtener_conexion()
+        self._cursor = self._conexion.cursor()
+        return self._cursor
+
+    def __exit__(self, tipo_exception, valor_exception, detalle_exception):
+        log.debug('Incio del metedo with y __exit__')
+        if valor_exception:
+            self._conexion.rollback()
+            log.debug(f'Ocurrio una excepcion {valor_exception}')
+        else:
+            self._conexion.commit()
+            log.debug('Commit de la transaccion')
+        self._cursor.close()
+        Conexion.liberar_conexion(self._conexion)
+
+if __name__ == '__main__':
+    with CursorDelPool() as cursor:
+        log.debug('Dentro del bloque with')
+        cursor.execute('SELECT * FROM persona')
+        log.debug(cursor.fetchall())
