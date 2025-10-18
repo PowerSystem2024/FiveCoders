@@ -14,7 +14,7 @@ export const signin = async (req, res) => {
   if (!validPassword){
     return res.status(401).json({ message: "Contraseña incorrecta" });
   }
-    const token = await createAccessToken({ id: result.rows[0].id });
+    const token = await createAccessToken({ id: result.rows[0].id }); //acá creamos el token para el usuario. De esta forma, cada vez que el usuario inicie sesión, se le asignará un token único que podrá usar para autenticar sus solicitudes posteriores.
 
     res.cookie("token", token, {
       httpOnly: true,
