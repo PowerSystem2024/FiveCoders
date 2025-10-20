@@ -9,4 +9,4 @@
 - Suarez Jonathan
 💻  ⌨️ 💾 ⚙️ 🎸 🖥️ 🧠 
 
-** Durante desarrollo , la rama feature es la más actualizada**
+**Durante desarrollo , la rama feature es la más actualizada**
