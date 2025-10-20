@@ -2,11 +2,12 @@ import express from 'express';
 import morgan from 'morgan';
 import tareasRoutes from './router/tareas_routes.js';
 import authRoutes from './router/auth_routes.js';   
-
+import cookieParser from 'cookie-parser';
 
 const app = express();// Crear la aplicación de Express- sirve para crear el servidor
 
 app.use(morgan("dev")); // Middleware de logging
+app.use(cookieParser()); // Middleware para parsear cookies
 app.use(express.json()); // Middleware para parsear JSON
 app.use(express.urlencoded({ extended: false })); //sirve para parsear formularios
 
