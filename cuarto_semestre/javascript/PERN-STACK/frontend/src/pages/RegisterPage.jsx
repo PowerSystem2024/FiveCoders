@@ -1,5 +1,6 @@
 import { Card, Button, Input } from "../components/ui";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 function RegisterPage() {
   const {
@@ -7,8 +8,13 @@ function RegisterPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+
+  const onSubmit = handleSubmit(async(data) => {
+    const res = await axios.post("http://localhost:3001/api/signup", data, {
+      withCredentials: true,// esto es para que envie las cookies desde el backend
+    });
+    console.log(res);
+
   });
 
   console.log(errors);
