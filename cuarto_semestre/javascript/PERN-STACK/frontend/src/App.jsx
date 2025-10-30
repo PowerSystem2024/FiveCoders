@@ -7,6 +7,7 @@ import TaskFormPage from './pages/TaskFormPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
+import NotFound from './pages/NotFound.jsx'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/tasks" element={<TasksPages/>} />
       <Route path="/tasks/new" element={<TaskFormPage/>} />
       <Route path="/tasks/:id/edit" element={<TaskFormPage/>} />
+      <Route path="*" element={<NotFound/>} />
      
     </Routes>
   )
