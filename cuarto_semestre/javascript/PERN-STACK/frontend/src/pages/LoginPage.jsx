@@ -1,16 +1,18 @@
 import {Button, Card, Input, Label } from "../components/ui";
-import { Link, useNavigate } from "react-router-dom";
+//import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {useForm} from "react-hook-form";
-import { useAuth } from "../hooks/useAuth";
+import  {AuthContext} from "../content/authContext.js";
+import { useContext } from "react";
 
 function LoginPage() {
 
   const {register, handleSubmit} = useForm();
-  const {signin} = useAuth();
-  const navigate = useNavigate();
+  const {signin, errors} = useContext(AuthContext);
+  //const navigate = useNavigate();
   const onSubmit = handleSubmit(async(data) => {
     await signin(data); 
-    navigate("/profile");
+   // navigate("/profile");
   }
 
 );
@@ -18,6 +20,9 @@ function LoginPage() {
 
     <div className="h-[calc(100vh-px)] flex items-center justify-center">
       <Card>
+        {
+          JSON.stringify(errors)
+        }
         <h1 className="text-4xl text-amber-50 font-bold my-2 text-center">Iniciar sesión</h1>
         <form onSubmit={onSubmit}>
           <Label htmlFor="email">Email</Label>

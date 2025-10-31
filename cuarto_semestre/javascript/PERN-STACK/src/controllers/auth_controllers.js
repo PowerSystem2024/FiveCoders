@@ -7,17 +7,19 @@ import md5 from "md5";
 export const signin = async (req, res) => {
   const {email, password} = req.body;
   const result = await pool.query("SELECT * FROM usuarios WHERE email = $1", [email]);
-  if (result.rows.length === 0){
-    return res.status(404).json({ message: "El correo no está registrado" });
+
+  if (result.rowCount === 0){
+    return res.status(400).json({ message: "El correo no está registrado" });
   }
   const validPassword = await bcrypt.compare(password, result.rows[0].password);
+
   if (!validPassword){
-    return res.status(401).json({ message: "Contraseña incorrecta" });
+    return res.status(400).json({ message: "Contraseña incorrecta" });
   }
     const token = await createAccessToken({ id: result.rows[0].id }); //acá creamos el token para el usuario. De esta forma, cada vez que el usuario inicie sesión, se le asignará un token único que podrá usar para autenticar sus solicitudes posteriores.
 
     res.cookie("token", token, {
-      httpOnly: true,
+      //httpOnly: true,
       secure: true, // Asegura que la cookie 
       sameSite: "none",
       maxAge: 60 * 60 * 24 * 1000,
@@ -39,7 +41,7 @@ export const signup = async (req, res, next) => {
     const token = await createAccessToken({ id: result.rows[0].id });
 
     res.cookie("token", token, {
-      httpOnly: true,
+      //httpOnly: true,
       secure: true, // Asegura que la cookie 
       sameSite: "none",
       maxAge: 60 * 60 * 24 * 1000,

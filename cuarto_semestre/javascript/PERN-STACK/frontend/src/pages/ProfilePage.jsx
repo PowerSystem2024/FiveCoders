@@ -1,7 +1,7 @@
-import { useAuth } from "../hooks/useAuth"
-
+import  {AuthContext} from "../content/authContext.js";
+import { useContext } from "react";
 function ProfilePage() {
-  const {user} = useAuth();
+  const {user} = useContext(AuthContext);
   return (
     <div>
       {JSON.stringify(user, null, 2)}

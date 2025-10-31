@@ -1,12 +1,13 @@
 import { Card, Button, Input, Label } from "../components/ui";
 import { useForm } from "react-hook-form";
 import { Link , useNavigate} from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { AuthContext } from "../content/authContext.js";
+import { useContext } from "react";
 
 function RegisterPage() {
   const {register, handleSubmit, formState: { errors }} = useForm();
 
-  const {signup} = useAuth();
+  const {signup} = useContext(AuthContext);
   const navigate = useNavigate();
   const onSubmit = handleSubmit(async(data) => {
     await signup(data);
