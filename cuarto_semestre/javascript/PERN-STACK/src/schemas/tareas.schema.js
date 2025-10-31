@@ -6,16 +6,16 @@ export const createTareasSchema = z.object({
     invalid_type_error: "El título debe ser una cadena de texto",
   }).min(1, {
     message: "El título debe tener al menos 1 carácter",
-  }).max(250, {
-    message: "El título debe tener como máximo 250 caracteres",
+  }).max(255, {
+    message: "El título debe tener como máximo 255 caracteres",
   }),
   descripcion: z.string({
     required_error: "La descripción es obligatoria",
     invalid_type_error: "La descripción debe ser una cadena de texto",
-  }).min(0, {
+  }).min(1, {
     message: "La descripción debe tener al menos 1 carácter",
-  }).max(500, {
-    message: "La descripción debe tener como máximo 500 caracteres",
+  }).max(255, {
+    message: "La descripción debe tener como máximo 255 caracteres",
   }).optional(),
 });
 
@@ -25,15 +25,15 @@ export const updateTareasSchema = z.object({
     invalid_type_error: "El título debe ser una cadena de texto",
   }).min(1, {
     message: "El título debe tener al menos 1 carácter",
-  }).max(250, {
-    message: "El título debe tener como máximo 250 caracteres",
+  }).max(255, {
+    message: "El título debe tener como máximo 255 caracteres",
   }).optional(),
   descripcion: z.string({
     required_error: "La descripción es obligatoria",
     invalid_type_error: "La descripción debe ser una cadena de texto",
-  }).min(0, {
+  }).min(1, {
     message: "La descripción debe tener al menos 1 carácter",
-  }).max(500, {
-    message: "La descripción debe tener como máximo 500 caracteres",
+  }).max(255, {
+    message: "La descripción debe tener como máximo 255 caracteres",
   }).optional(),
 });

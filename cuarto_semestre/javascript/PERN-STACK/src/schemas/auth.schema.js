@@ -9,9 +9,11 @@ export const signupSchema = z.object({
   }).max(255, {
     message: "El nombre debe tener como máximo 255 caracteres",
   }),
-  email: z.email({
+  email: z.string({
     required_error: "El email es obligatorio",
     invalid_type_error: "El email debe ser una cadena de texto",
+  }).email({
+    message: "El email no es válido",
   }),
   password: z.string({
     required_error: "La contraseña es obligatoria",
@@ -24,9 +26,11 @@ export const signupSchema = z.object({
 });
 
 export const signinSchema = z.object({
-  email: z.email({
+  email: z.string({
     required_error: "El email es obligatorio",
     invalid_type_error: "El email debe ser una cadena de texto",
+  }).email({
+    message: "El email no es válido",
   }),
   password: z.string({
     required_error: "La contraseña es obligatoria",

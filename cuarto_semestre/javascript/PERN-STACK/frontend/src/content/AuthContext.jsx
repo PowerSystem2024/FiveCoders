@@ -1,9 +1,94 @@
-import { createContext } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import axios from 'axios';
+import { createContext, useState, useContext, useEffect } from 'react';
+import Cookie from 'js-cookie';
+import cliente from '../api/axios.js';
 
 export const AuthContext = createContext();
 
-//define el tipo de contexto que se va a manejar en la aplicación. 
-// En este caso, se trata de un contexto de autenticación (AuthContext) que probablemente contendrá información sobre el usuario autenticado, su estado de autenticación y posibles errores relacionados con la autenticación.
-//AuthProvider.jsx es el proveedor de este contexto, que envuelve a los componentes hijos y les proporciona acceso a los valores definidos en el contexto. Gestiona el estado de autenticación y proporciona funciones para actualizar ese estado.
-//useAuth.jsx es un hook personalizado que facilita el acceso al contexto de autenticación desde cualquier componente funcional dentro de la aplicación.
-//main.jsx es el punto de entrada de la aplicación React, donde se configura el enrutamiento y se envuelve la aplicación con el AuthProvider para que todos los componentes tengan acceso al contexto de autenticación.
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("useAuth must be used within an AuthProvider");
+    }
+    return context;
+}
+
+export function AuthProvider({ children }) {
+    const [user, setUser] = useState(null);
+    const [isAuth, setIsAuth] = useState(false);
+    const [errors, setErrors] = useState(null);
+
+    const signin = async (data) => {
+        try {
+            const res = await cliente.post('/signin', data);
+            console.log(res);
+            setUser(res.data);
+            setIsAuth(true);
+            return res.data;
+        } catch (error) {
+            if (error.response && error.response.data) {
+                if (Array.isArray(error.response.data)) {
+                    setErrors(error.response.data);
+                } else {
+                    setErrors([error.response.data]);
+                }
+            } else {
+                setErrors([{ message: 'Error de conexión. Verifica que el servidor esté corriendo.' }]);
+            }
+            throw error;
+        }
+    }
+
+    const signup = async (data) => {
+        try {
+            setErrors(null);
+            const res = await cliente.post('/signup', data);
+            console.log(res);
+            setUser(res.data);
+            setIsAuth(true);
+            return res.data;
+        } catch (error) {
+            if (error.response && error.response.data) {
+                // Los errores de Zod vienen como array
+                setErrors(Array.isArray(error.response.data) ? error.response.data : [error.response.data]);
+            } else {
+                setErrors([{ message: 'Error de red' }]);
+            }
+            throw error;
+        }
+
+    }
+
+    const signout = async () => {
+        try {
+            await cliente.post('/signout');
+            setUser(null);
+            setIsAuth(false);
+            Cookie.remove("token");
+        }
+        catch (error) {
+            console.log('Error al cerrar sesión:', error);
+        }
+    }
+
+    useEffect(() => {
+        if (Cookie.get("token")) {
+            axios.get('http://localhost:3001/api/profile', {
+                withCredentials: true,
+            }).then(res => {
+                setUser(res.data);
+                setIsAuth(true);
+            }).catch(err => {
+                setUser(null);
+                setIsAuth(false);
+                Cookie.remove("token");
+                console.log('Error al obtener perfil:', err);
+            });
+        }
+    }, []);
+
+    return <AuthContext.Provider value={{ user, isAuth, errors, signup, signin, signout }}>
+        {children}
+    </AuthContext.Provider>
+}
