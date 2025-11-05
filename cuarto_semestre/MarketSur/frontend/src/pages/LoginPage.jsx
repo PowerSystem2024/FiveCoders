@@ -1,7 +1,7 @@
 import {Button, Card, Input, Label } from "../components/ui";
 import { Link, useNavigate } from "react-router-dom";
 import {useForm} from "react-hook-form";
-import { useAuth } from "../content/AuthContext.jsx";
+import { useAuth } from "../content/AuthContext";
 
 function LoginPage() {
 
@@ -16,45 +16,30 @@ function LoginPage() {
   });
   return (
 
-    <div className="min-h-screen bg-blue-500 flex items-center justify-center px-4">
+    <div className="h-[calc(100vh-px)] flex items-center justify-center">
       <Card>
-        {loginErrors && loginErrors.map((error) =>(
-            <p className="bg-red-100 text-red-600 p-2 rounded mb-4 text-sm">{error}</p>
-          ))}
-
-        <h2 className="text-gray-800 text-2xl font-semibold mb-6 text-center">Iniciar sesión</h2>
-        <form onSubmit={onSubmit} className="space-y-4">
+        
+          {loginErrors  && loginErrors .map((error) =>(
+            <p className="bg-red-500 text-white p-2">{error}</p>
+          )
+)}
+        <h1 className="text-4xl text-amber-50 font-bold my-2 text-center">Iniciar sesión</h1>
+        <form onSubmit={onSubmit}>
           <Label htmlFor="email">Email</Label>
-          <Input
-            type="email"
-            placeholder="Ingrese su email"
-            {...register("email", {required: true})}
-          />
-          {errors.email && (
-            <span className="text-red-500 text-xs">Este campo es obligatorio</span>
-          )}
+          <Input type="email" placeholder="Ingrese su email" {...register("email", {required: true})} ></Input>
+           {
+            errors.email && <span className="text-red-500">Este campo es obligatorio</span>
+          }
           <Label htmlFor="password">Contraseña</Label>
-          <Input
-            type="password"
-            placeholder="Ingrese su contraseña"
-            {...register("password", {required: true})}
-          />
-          {errors.password && (
-            <span className="text-red-500 text-xs">Este campo es obligatorio</span>
-          )}
-
-          <div className="mt-6">
-            <Button>Iniciar sesión</Button>
-          </div>
+          <Input type="password" placeholder="Ingrese su contraseña" {...register("password", {required: true})} ></Input>
+          <Button>Iniciar sesión</Button>
         </form>
-        <div className="mt-4 text-center text-sm">
-          <p className="text-gray-600">¿No tienes cuenta?{" "}
-            <Link to="/register" className="text-blue-500 hover:text-blue-600 font-medium">
-              Registrate
-            </Link>
-          </p>
+        <div className="flex justify-between my-4 text-amber-50">
+          <p>¿No tienes cuenta?</p>
+          <Link to="/register"> - Registrate </Link>
+
         </div>
-      </Card>
+        </Card>  
     </div>
   )
 }

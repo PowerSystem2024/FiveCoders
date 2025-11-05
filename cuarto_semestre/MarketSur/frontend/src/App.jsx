@@ -11,7 +11,7 @@ import Navbar from './components/navbar/Navbar.jsx';
 import {Container} from './components/ui/Container.jsx';
 import {ProtectedRoutes} from './components/ProtectedRoutes.jsx';
 import { useAuth } from './content/AuthContext.jsx';
-
+import UserPage from './pages/UserPage.jsx'
 
 function App() {
   const { isAuth } = useAuth();
@@ -25,6 +25,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/UserPage" element={<UserPage/>}/>
 
           <Route element={<ProtectedRoutes isAllowed={isAuth} redirectTo="/login" />}>
             <Route path="/profile" element={<ProfilePage />} />

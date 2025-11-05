@@ -16,21 +16,21 @@ function RegisterPage() {
   });
 
   return (
-    <div className="min-h-screen bg-blue-500 flex items-center justify-center px-4">
+    <div className="h-[calc(100vh-64px)] flex items-center justify-center">
       <Card>
         {setUserErrors && setUserErrors.map((error) =>(
-            <p className="bg-red-100 text-red-600 p-2 rounded mb-4 text-sm">{error}</p>
+            <p className="bg-red-500 text-white p-2">{error}</p>
           ))}
 
-        <h2 className="text-gray-800 text-2xl font-semibold mb-6 text-center">Registro</h2>
-        <form onSubmit={onSubmit} className="space-y-4">
+        <h2 className="text-white text-4xl font-bold my-4">Registro</h2>
+        <form onSubmit={onSubmit}>
           <Label htmlFor="name">Nombre</Label>
           <Input
             placeholder="Ingrese su nombre"
             {...register("name", { required: true })}
-          />
+          ></Input>
           {errors.name && (
-            <span className="text-red-500 text-xs">Este campo es obligatorio</span>
+            <span className="text-red-500">Este campo es obligatorio</span>
           )}
           <Label htmlFor="email">Email</Label>
           <Input
@@ -39,7 +39,7 @@ function RegisterPage() {
             {...register("email", { required: true })}
           />
           {errors.email && (
-            <span className="text-red-500 text-xs">Este campo es obligatorio</span>
+            <span className="text-red-500">Este campo es obligatorio</span>
           )}
           <Label htmlFor="password">Contraseña</Label>
           <Input
@@ -48,19 +48,14 @@ function RegisterPage() {
             {...register("password", { required: true })}
           />
           {errors.password && (
-            <span className="text-red-500 text-xs">Este campo es obligatorio</span>
+            <span className="text-red-500">Este campo es obligatorio</span>
           )}
 
-          <div className="mt-6">
-            <Button>Registrarse</Button>
-          </div>
+          <Button>Registrarse</Button>
         </form>
-        <div className="mt-4 text-center text-sm">
-          <p className="text-gray-600">¿Ya tienes cuenta?{" "}
-            <Link to="/login" className="text-blue-500 hover:text-blue-600 font-medium">
-              Iniciar sesión
-            </Link>
-          </p>
+           <div className="flex justify-between my-4">
+          <p>¿Ya tienes cuenta?</p>
+          <Link to="/login">Iniciar sesión</Link>
 
         </div>
       </Card>

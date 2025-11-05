@@ -2,7 +2,7 @@ import { forwardRef } from "react"
 
 export const Input = forwardRef((props, ref) => {
   return (
-    <input ref={ref} type="text" className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" {...props}/>
+    <input ref={ref} type="text" className="bg-zinc-100 px-3 py-2 block my-2 w-full" {...props}/>
   )
 })
 
