@@ -1,101 +1,139 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Sidebar({ open, onClose }) {
+// Íconos SVG
+import VenderIcon from "../../assets/receipt.svg";
+//import InboxIcon from "../../assets/message.svg";
+import SettingsIcon from "../../assets/settings.svg";
+import LogoutIcon from "../../assets/logout.svg";
+import ProfileIcon from "../../assets/user.svg";
+import ProductIcon from "../../assets/object.svg";
+import DiscoveryIcon from "../../assets/store.svg";
+import ShoppingBag  from "../../assets/shopping.svg";
+
+const sidebarItems = [
+  { label: "Mi Perfil", hyperlink: "/UserPage", icon: ProfileIcon },
+  { label: "Descubrir", hyperlink: "/ProductDiscoveryPage", icon: DiscoveryIcon },
+  { label: "Mis Productos", hyperlink: "/ProductPage", icon: ProductIcon },
+  { label: "Mis Ventas", hyperlink: "/projects", icon: VenderIcon },
+  { label: "Mis Compras", hyperlink: "/purchases", icon: ShoppingBag },
+  // { label: "Inbox", hyperlink: "/inbox", icon: InboxIcon, extra: '3' },
+  { label: "Configuración", hyperlink: "/settings", icon: SettingsIcon },
+  { label: "Cerrar sesión", hyperlink: "/logout", icon: LogoutIcon },
+];
+
+function Sidebar() {
+  const [open, setOpen] = useState(false);
+
+  // Bloquea el scroll del body cuando el sidebar móvil está abierto
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
+  const handleLinkClick = () => setOpen(false);
+
   return (
     <>
-      {/* Backdrop para mobile cuando está abierto */}
+      {/* Botón hamburguesa - visible solo en móvil */}
+      <button
+        onClick={() => setOpen(true)}
+        className="sm:hidden fixed top-4 left-4 z-50 p-2 bg-gray-900 rounded-md shadow"
+        aria-label="Abrir menú"
+      >
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      {/* Backdrop para móvil */}
       <div
-        className={`fixed inset-0 bg-black/40 z-30 transition-opacity duration-200 ${
+        className={`fixed inset-0 bg-black/60 z-40 transition-opacity duration-200 ${
           open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         } sm:hidden`}
         aria-hidden={!open}
-        onClick={onClose}
+        onClick={() => setOpen(false)}
       />
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-2 left-0 z-40 w-64 h-screen transform transition-transform duration-200 bg-white border-r dark:bg-gray-800 dark:border-gray-700
-          ${open ? 'translate-x-0' : '-translate-x-full'} sm:translate-x-0 sm:static sm:inset-auto`}
-        aria-hidden={!open && window.innerWidth < 640}
+        className={`
+          fixed top-0 left-0 z-50 w-64 transform transition-transform duration-200
+          bg-gray-900 text-white border-r border-gray-800
+          ${open ? 'translate-x-0' : '-translate-x-full'}
+          sm:translate-x-0 sm:static
+          sm:sticky sm:top-0
+          h-screen
+          sm:overflow-y-auto
+        `}
         aria-label="Sidebar"
       >
-        <div className="h-full px-4 py-6 overflow-y-auto">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 mb-6">
-            <img src="../src/assets/MarketBolso.png" alt="Logo" className="h-7" />
-            <span className="text-lg font-semibold dark:text-white">MiApp</span>
-          </Link>
+        <div className="h-full px-4 py-6 flex flex-col">
+          {/* Header: logo + close (mobile) */}
+          <div className="flex items-center justify-between mb-6">
+            <Link to="/" className="flex items-center gap-3" onClick={handleLinkClick}>
+              <div className="w-8 h-8 bg-orange-500 rounded" />
+              <span className="text-lg font-semibold text-white">USUARIO</span>
+            </Link>
 
-          {/* Nav */}
-          <nav>
+            {/* Botón cerrar sólo en móvil (sm:hidden) */}
+            <button
+              onClick={() => setOpen(false)}
+              className="sm:hidden p-2 rounded-md bg-gray-800 hover:bg-gray-700"
+              aria-label="Cerrar menú"
+            >
+              <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Nav: crece y scrollea si es necesario */}
+          <nav className="flex-1 overflow-y-auto">
             <ul className="space-y-2 text-sm font-medium">
-              <li>
-                <Link
-                  to="/dashboard"
-                  className="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-                >
-                  <svg className="w-5 h-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M3 3h7v7H3V3zm7 7h7v7H10V10zM3 11h7v7H3v-7z" />
-                  </svg>
-                  <span>Dashboard</span>
-                </Link>
-              </li>
+              {sidebarItems.map((item) => {
+                const IconURL = item.icon;
+                return (
+                  <li key={item.hyperlink}>
+                    <Link
+                      to={item.hyperlink}
+                      className="flex items-center p-2 rounded-md text-gray-200 hover:bg-gray-800 hover:text-white transition"
+                      onClick={handleLinkClick}
+                    >
+                      <img
+                        src={IconURL}
+                        alt={`${item.label} icon`}
+                        className="w-5 h-5 invert brightness-200"
+                      />
+                      <span className="ml-2">{item.label}</span>
 
-              <li>
-                <Link
-                  to="/projects"
-                  className="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-                >
-                  <svg className="w-5 h-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M4 3h12v2H4V3zm0 4h12v10H4V7z" />
-                  </svg>
-                  <span>Vender</span>
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  to="/inbox"
-                  className="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-                >
-                  <svg className="w-5 h-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M2 5h16v10H2z" />
-                  </svg>
-                  <span>Inbox</span>
-                  <span className="ml-auto inline-flex items-center justify-center px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                    3
-                  </span>
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  to="/settings"
-                  className="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-                >
-                  <svg className="w-5 h-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10 2a2 2 0 00-2 2v1H6v2h2v1a2 2 0 104 0V7h2V5h-2V4a2 2 0 00-2-2z" />
-                  </svg>
-                  <span>Configuración</span>
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  to="/logout"
-                  className="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-                >
-                  <svg className="w-5 h-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M7 7v6h6V7H7z" />
-                  </svg>
-                  <span>Cerrar sesión</span>
-                </Link>
-              </li>
+                      {item.extra && (item.label === "Inbox") && (
+                        <span className="ml-auto inline-flex items-center justify-center px-2 py-0.5 text-xs font-semibold bg-orange-500 text-black rounded-full">
+                          {item.extra}
+                        </span>
+                      )}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
+
+          {/* Footer opcional (pequeño espacio para info/contacto) */}
+          <div className="mt-6 text-xs text-gray-400">
+            <div>v0.1 • Tu app</div>
+            <div className="mt-2">soporte@tuapp.local</div>
+          </div>
         </div>
       </aside>
     </>
   );
 }
+
+export default Sidebar;
+
+
