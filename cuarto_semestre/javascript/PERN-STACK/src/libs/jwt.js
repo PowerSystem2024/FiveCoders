@@ -7,7 +7,7 @@ export const createAccessToken = (payload) => {
             {expiresIn: "1d"},
             (err, token) => {
                 if(err) reject(err);   
-                resolve(token);
+                resolve(token);//acá  devolvemos el token creado
             });
         });
     };

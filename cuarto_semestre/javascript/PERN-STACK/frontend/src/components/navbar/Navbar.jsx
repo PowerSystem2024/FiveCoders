@@ -27,11 +27,11 @@ function Navbar({children}) {
                 </h1>
                 <ul className="flex gap-x-2 items-center">
                     {isAuth ? PrivateRoutes.map(({ name, path }) => (
-                        <li className={`px-3 py-1 rounded ${location.pathname === path ? 'bg-sky-500 text-white' : 'text-gray-300 hover:text-white'}`} key={name} >
+                        <li className={`px-3 py-1 rounded ${location.pathname === path ? 'bg-green-500 text-white' : 'text-gray-300 hover:text-white'}`} key={name} >
                             <Link to={path} onClick={(e) => handleNavClick(e, path)}>{name}</Link>
                         </li>
                     )) : PublicRoutes.map(({ name, path }) => (
-                        <li className={`px-3 py-1 rounded ${location.pathname === path ? 'bg-sky-500 text-white' : 'text-gray-300 hover:text-white'}`} key={name} >
+                        <li className={`px-3 py-1 rounded ${location.pathname === path ? 'bg-green-500 text-white' : 'text-gray-300 hover:text-white'}`} key={name} >
                             <Link to={path}>{name}</Link>
                         </li>
                     ))}
